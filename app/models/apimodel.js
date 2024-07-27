@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import  mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 // create geolocation Schema
@@ -31,4 +32,4 @@ const NinjaSchema = new Schema({
 
 const Ninja = mongoose.model('ninja', NinjaSchema);
 
-module.exports = Ninja;
+export default Ninja;

@@ -1,13 +1,15 @@
 // see https://www.npmjs.com/package/mssql
 
 // Initialize the mssql package
-var sqlDb = require('../../node_modules/mssql');
-var config = require('../../config/database');
+import sqlDb from 'mssql';
+import * as config from '../../config/database.js';
 
 // Initialize the pg package in your Node.js script and get the Client from it.
-const { Client } = require('pg');   // run "npm i pg"
+import pg from 'pg';   // run "npm i pg"
 
-exports.executeSql = function (sql, callback) {
+const { Client } = pg;
+
+const executeSql = function (sql, callback) {
 
     var conn = new sqlDb.ConnectionPool(config.dbmssql_config);
     conn.connect().then(function () {
@@ -50,6 +52,7 @@ function sqlFunction(sql, callback) {
 }
 
 function sqlFunctionPostgres(sql, callback) {
+    console.log("Call **sqlFunctionPostgres** module");
     // console.log(config.dbpostgres_config);
 
     const client = new Client(config.dbpostgres_config);
@@ -266,7 +269,7 @@ function sqlFunctionPostgres(sql, callback) {
 //     });
 // };
 
-exports.FindCorrectUserNPassword = function (username, password) {
+const FindCorrectUserNPassword = function (username, password) {
     return new Promise(function (resolve, reject) {
         sqlFunctionPostgres("SELECT \"UserID\", \"UserName\", \"UserEmail\" FROM \"01_WebGIS_User\"" +
             " WHERE \"UserName\" ='" + username + "'" +
@@ -282,13 +285,14 @@ exports.FindCorrectUserNPassword = function (username, password) {
     });
 };
 
-exports.FindUser = function (username) {
+const FindUser = function (username) {
+    console.log("Call **FindUser** module");
     return new Promise(function (resolve, reject) {
         sqlFunctionPostgres("SELECT \"UserID\", \"UserName\", \"UserEmail\" FROM \"01_WebGIS_User\"" +
             " WHERE \"UserName\" ='" + username + "' LIMIT 1",
             function (rows, err) {
                 if (err) return reject(err);
-                // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
+                console.log("Call **FindUser In dbcrud.js** Module " + "\n" + rows + "\n\n" + "------------\n");
                 resolve(rows);
             });
     }).catch(function (err) {
@@ -296,7 +300,7 @@ exports.FindUser = function (username) {
     });
 };
 
-exports.GeoLiveSearch = function (strSearchedValue) {
+const GeoLiveSearch = function (strSearchedValue) {
     return new Promise(function (resolve, reject) {
         var strSearchedQuery = "SELECT *, st_x(ST_Centroid(geom)) as X, st_y(ST_Centroid(geom)) as Y, " +
                                 "ST_X(ST_Transform(ST_SetSRID(ST_AsText(ST_Centroid(geom)),3405),3857)) As Longitude, " +
@@ -319,147 +323,4 @@ exports.GeoLiveSearch = function (strSearchedValue) {
     });
 };
 
-// exports.FindArduinoPin = function (strLocation) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT TOP (1) ArduinoPinID FROM IoTArduinoLocationBinStatusMatrix WHERE WorkStationLocationBinID IN"
-//             + " (SELECT TOP(1) WorkStationLocationBinID  FROM IoTWorkStationLocationControl" +
-//             " WHERE WorkStationLocation ='" + strLocation + "')",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.AcessSectorGroup = function () {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT DISTINCT SectorGroup,CurrentPO FROM TrackingCurrentPOStatus WITH (NOLOCK)", function (rows, err) {
-//             if (err) return reject(err);
-//             // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//             resolve(rows);
-//         });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-
-
-//     // return new Promise(function (resolve, reject) {
-//     //     setTimeout(function () {
-//     //         console.log('secon method completed');
-//     //         //do 
-//     //         //- $('#downtime').empty();
-//     //         //- let querydt =`/sql/vnmsrv601/exec PTR.dbo.sp002_rptDownTime '${linename}'`;
-//     //         //- buildHtmlTableD3(querydt,'#downtime');
-//     //         resolve();
-//     //     }, 1000);
-//     // });
-// };
-
-// exports.AccessSectorLine = function (strSectorGroup) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT Sector FROM TrackingCurrentPOStatus WITH (NOLOCK)" +
-//             " WHERE SectorGroup ='" + strSectorGroup + "'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.AccessLineStation = function (strSectorLine) {
-//     strSectorLine = strSectorLine.substring(0, strSectorLine.length - 5)
-//     console.log(strSectorLine);
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT WorkStationLocation FROM IoTWorkStationLocationControl WITH (NOLOCK)" +
-//             " WHERE WorkStationLocation LIKE'" + strSectorLine + "%'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.FindWSLocationID = function (strLocation) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT TOP(1) WorkStationLocationID FROM IoTWorkStationLocationControl WITH (NOLOCK)" +
-//             " WHERE WorkStationLocation ='" + strLocation + "'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.AccessLocationIDCurrentStatus = function (intMaterialsLocation) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT TOP(1) * FROM IoTKANBANControl WITH (NOLOCK)" +
-//                         " WHERE KANBANLocationID ='" + intMaterialsLocation + "'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.CalSumKBFedQty = function (strPONumber, strMaterials) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("SELECT KANBANMaterials,SUM(KANBANFedQty) as SumKBFedQty FROM IoTKANBANControl WITH (NOLOCK)" +
-//                         " WHERE KANBANMaterials ='" + strMaterials + "'" +
-//                         " AND CurrentPONumber = '" + strPONumber + "'" +
-//                         " GROUP BY KANBANMaterials",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.UpdateKBQtyStatusByLoc = function (strPONumber, strMaterialsNumber, intWSLocationID, dblNewKBFedQty, newKBLevelID) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("UPDATE IoTKANBANControl SET KANBANFedQty = '" + dblNewKBFedQty + "'" +
-//             " , KANBANLevelID = '" + newKBLevelID + "'" +
-//             " WHERE KANBANLocationID ='" + intWSLocationID + "'" +
-//             " AND KANBANMaterials = '" + strMaterialsNumber + "'" +
-//             " AND CurrentPONumber = '" + strPONumber + "'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
-
-// exports.UpdateKBQtyStatus = function (strPONumber, strMaterialsNumber, intWSLocationID, dblNewKBFedQty, newKBLevelID) {
-//     return new Promise(function (resolve, reject) {
-//         sqlFunction("UPDATE IoTKANBANControl SET KANBANLevelID = '" + newKBLevelID + "'" +
-//             " WHERE KANBANMaterials = '" + strMaterialsNumber + "'" +
-//             " AND CurrentPONumber = '" + strPONumber + "'",
-//             function (rows, err) {
-//                 if (err) return reject(err);
-//                 // console.log("Promise " + "\n" + rows + "\n\n" + "------------\n");
-//                 resolve(rows);
-//             });
-//     }).catch(function (err) {
-//         console.log(err);
-//     });
-// };
+export { FindCorrectUserNPassword, FindUser, GeoLiveSearch};

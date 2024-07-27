@@ -1,7 +1,8 @@
-var apimodel = require('../app/models/apimodel');
-var apicontroller = require('../app/controllers/apicontroller');
+import express from 'express';
+import * as apimodel from '../app/models/apimodel.js';
+import * as apicontroller from '../app/controllers/apicontroller.js';
 
-module.exports = function(app){
+const apiRouteApp = function(app){
    
     // get a list of record from the db
     app.get('/api/GetLayerStyle', apicontroller.api_getlayerstyle);
@@ -37,3 +38,5 @@ module.exports = function(app){
 
     return app;
 };
+
+export default apiRouteApp;

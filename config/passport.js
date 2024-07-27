@@ -1,16 +1,15 @@
-var LocalStrategy = require('../node_modules/passport-local').Strategy;
-var dateFormat = require('dateformat');
+import passportLocal from 'passport-local';
+import dateFormat from 'dateformat';
+import sqlDb from 'mssql';
+import * as config from'../config/database.js';
+import * as dbcurd from'../public/js/dbcrud.js';
 
-// var User = require('../app/models/usermodel');
+var LocalStrategy = passportLocal.Strategy;
 
-var sqlDb = require('../node_modules/mssql');
-var config = require('../config/database');
 var request = new sqlDb.Request([config]);
-var dbcurd = require('../public/js/dbcrud');
-
 
 //expose this function to our app using module.exports
-module.exports = function (passport) {
+export default function (passport) {
 
     // =========================================================================
     // passport session setup ==================================================
@@ -60,11 +59,7 @@ module.exports = function (passport) {
             // User.findOne wont fire unless data is sent back
             process.nextTick(function () {
 
-
-
             });
-
-
         }));
 
 
@@ -84,7 +79,7 @@ module.exports = function (passport) {
         function (req, username, password, done) { // callback with username and password from our form
             // find a user whose username is the same as the forms username
             // we are checking to see if the user trying to login already exists
-            // console.log("LocalStrategy");
+            console.log("Call **local-login** module");
 
             var promiseUser = dbcurd.FindUser(username);
             promiseUser.then(function (resultPass) {

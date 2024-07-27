@@ -1,11 +1,13 @@
-var fs = require('fs');
-var path = require('path');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var dbcurd = require('../../public/js/dbcrud');
-var os = require("os");
-var hostname = os.hostname();
+import fs from 'node:fs';
+import path from 'node:path';
+import  XML_HttpRequest from "xmlhttprequest";
+import * as dbcurd from'../../public/js/dbcrud.js';
+import os from "node:os";
 
-exports.signup = function (req, res) {
+var hostname = os.hostname();
+var XMLHttpRequest = XML_HttpRequest.XMLHttpRequest;
+
+const signup = function (req, res) {
 	if (req.session.username) {
 		res.redirect('/home');
 	} else {
@@ -17,7 +19,7 @@ exports.signup = function (req, res) {
 	}
 };
 
-exports.login = function (req, res) {
+const login = function (req, res) {
 	
 	if (req.session.username) {
 		console.log("appcontroller - exports.login: ", req.session.username);
@@ -32,7 +34,7 @@ exports.login = function (req, res) {
 	}
 };
 
-exports.loggedIn = function (req, res, next) {
+const loggedIn = function (req, res, next) {
 	console.log("appcontroller - exports.loggedIn: ", req.session.username);
 	if (req.session.username) { // req.session.passport._id
 		next();
@@ -46,7 +48,7 @@ exports.loggedIn = function (req, res, next) {
 // 	res.render('openui5index');
 // };
 
-exports.home = function (req, res) {
+const home = function (req, res) {
 	console.log('This is home GET: ' + JSON.stringify(req.body));
 	res.render('index', {
 		data: {
@@ -81,7 +83,7 @@ exports.home = function (req, res) {
 	*/
 };
 
-exports.homePost = function (req, res) {
+const homePost = function (req, res) {
 	console.log('This is home POST: ' + JSON.stringify(req.body));
 
 	var strSearchedValue = req.body.nmSearchValue;
@@ -114,3 +116,5 @@ exports.homePost = function (req, res) {
 		console.log(err);
 	});
 };
+
+export { home, homePost, login, loggedIn, signup }

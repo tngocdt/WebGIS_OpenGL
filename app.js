@@ -1,16 +1,34 @@
-var express = require('./node_modules/express');
-var cors = require('./node_modules/cors');
+import express from 'express';
+import cors from 'cors';
+import global from 'jquery';
+import dt from 'datatables.net';
+
+import path from 'node:path';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+
+import passport from 'passport';
+import passportConfig from './config/passport.js';
+import flash from 'connect-flash';
+
+import appRoute from './routes/approute.js';
+import apiRoute from './routes/apiroute.js';
+
+// const mongoose = require('mongoose');
+import * as configDB from'./config/database.js';
+import {fileURLToPath} from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+// 👇️ "/home/john/Desktop/javascript"
+const __dirname = path.dirname(__filename);
+console.log('directory-name 👉️', __dirname);
 
 var app = express();
 app.use(cors());
 
-global.jQuery = require('./node_modules/jquery');
-global.$ = global.jQuery;
-var dt = require('./node_modules/datatables.net');
+// global.$ = global.jQuery;
 
-var path = require('node:path');
-var session = require('./node_modules/express-session');
-var bodyParser = require('./node_modules/body-parser');
 // use body-parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -18,7 +36,6 @@ app.use(bodyParser.urlencoded({
 }));
 bodyParser.Promise = global.Promise;
 
-var cookieParser = require('./node_modules/cookie-parser');
 app.use(cookieParser());
 app.use(session({
     secret: "Shh, its a secret!",
@@ -26,17 +43,12 @@ app.use(session({
     saveUninitialized: true
 }));
 
-var passport = require('./node_modules/passport');
-var flash = require('./node_modules/connect-flash');
-
-// const mongoose = require('mongoose');
 // mongoose.set('useCreateIndex', true);
-var configDB = require('./config/database.js');
 //// connect to mongodb
 // mongoose.connect(configDB.cnnMongooseDB.cnnDB, { useNewUrlParser: true });
 // mongoose.Promise = global.Promise;
 
-require('./config/passport')(passport); // pass passport for configuration
+passportConfig(passport); // pass passport for configuration
 
 // static files;
 app.use(express.static('public'));
@@ -59,8 +71,8 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // ****************************************************************************************************
 // ****************************************************************************************************
 // initialize routes
-app.use('/', require('./routes/approute'));
-require('./routes/apiroute')(app);
+app.use('/', appRoute);
+apiRoute(app);
 // require('./routes/iotroute.js')(app);
 
 
@@ -101,4 +113,4 @@ io.on('connection',function(socket){
    
 }); */
 
-exports = module.exports = app;
+export default app;

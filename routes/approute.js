@@ -1,9 +1,9 @@
-var express = require('../node_modules/express');
+import express from 'express';
 const router = express.Router();
 
 // const Ninja = require('../models/ninja');
-var passport = require('../node_modules/passport');
-var appcontroller = require('../app/controllers/appcontroller');
+import passport from 'passport';
+import * as appcontroller from '../app/controllers/appcontroller.js';
 
 router.get('/login', appcontroller.login);
 router.get('/signup', appcontroller.signup);
@@ -41,5 +41,4 @@ router.get('/logout', function (req, res) {
 });
 
 
-
-module.exports = router;
+export default router;

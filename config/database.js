@@ -26,5 +26,6 @@ const dbpostgres_config = {
 	database: 'GISDBdev'
 };
 
-module.exports.dbmssql_config = dbmssql_config;
-module.exports.dbpostgres_config = dbpostgres_config;
+// module.exports.dbmssql_config = dbmssql_config;
+// module.exports.dbpostgres_config = dbpostgres_config;
+export { dbmssql_config, dbpostgres_config, }

@@ -1,12 +1,13 @@
-var fs = require('fs');
-var path = require('path');
-var dbcurd = require('../../public/js/dbcrud');
-var querystring = require('querystring');
-var jsonata = require("jsonata");
-var http = require("http");
+import fs from 'node:fs';
+import path from 'node:path';
+import * as dbcurd from'../../public/js/dbcrud.js';
+
+import querystring from 'node:querystring';
+import jsonata from "jsonata";
+import http from "node:http";
 
 
-exports.api_getlayerstyle = function (req, res) {
+const api_getlayerstyle = function (req, res) {
 	var strSectorLine = req.query.SectorLine;
 	// var station = req.query.Station;
 	// var strRaspiHostName = "RasPi_" + station;
@@ -27,7 +28,7 @@ exports.api_getlayerstyle = function (req, res) {
 	});
 };
 
-exports.api_geoserver_url = function (req, res) {
+const api_geoserver_url = function (req, res) {
 	console.log("Call OpenLayer Geoserver API Url From *api_geoserver_url*");
 	var url = req.url;
 	var findQuestionLoc = url.indexOf("?");
@@ -66,7 +67,7 @@ exports.api_geoserver_url = function (req, res) {
 	});
 };
 
-exports.api_geoserver_livesearch = function (req, res) {
+const api_geoserver_livesearch = function (req, res) {
 	var strSearchedValue = req.query.strSearchedValue;
 	console.log("Call OpenLayer Geoserver Live Search From *api_geoserver_livesearch* By strSearchedValue: *" + String(strSearchedValue) + "*");
 	
@@ -92,3 +93,5 @@ exports.api_geoserver_livesearch = function (req, res) {
 		console.log(err);
 	});
 };
+
+export { api_getlayerstyle, api_geoserver_url, api_geoserver_livesearch }
