@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>KITTING LOCATIONS WATCHDOG</title>
+    <!-- Nhúng file Javasript tại đường dẫn src để có thể xây dựng 1 graph -->
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+    <h2>Materials</h2> <input type="text" size="6" id="Materials">&#176;<br>
+    <h2>OnLineLocations</h2> <input type="text" size="6" id="OnLineLocations"><br>
+        
+        
+    <script type="text/javascript">
+
+        function httpGetAsync(theUrl, callback) { 
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(JSON.parse(xmlHttp.responseText));
+            }
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous
+            xmlHttp.send(null);
+        }
+
+        window.onload = function() {
+            var updateInterval = 5000; // Thời gian cập nhật dữ liệu 2000ms = 2s
+            var updateChart = function() {
+                httpGetAsync('/api/kittinglocs/get', function(data) {
+                    // Gán giá trị từ localhost:8000/get vào textbox để hiển thị
+                    // alert(window.location.host);
+
+                    var resdata = <%- JSON.stringify(data) %>;
+                            
+                    resdata.forEach(function(jsonitem){
+                        var keys = Object.keys(jsonitem);
+                        for(var i=0; i < keys.length; i++){
+                            var key = keys[i];
+                            console.log(key,jsonitem[key]);
+                        }
+                    }); 
+
+                    document.getElementById("Materials").value = resdata[0].Materials;
+                    document.getElementById("OnLineLocations").value = resdata[0].MaterialsLocOnWSCode;
+
+
+                });
+            };
+
+            updateChart(); // Chạy lần đầu tiên
+
+            setInterval(function() { // Cập nhật lại giá trị graph sau thời gian updateInterval
+                updateChart()
+            }, updateInterval);
+        }
+
+    </script>
+</body>
+</html>

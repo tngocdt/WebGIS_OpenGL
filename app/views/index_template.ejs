@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/Bootstrap/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="/css/Bootstrap/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="/js/jQuery-3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/DataTables/jQuery-1.12.4/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/css/Bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/js/googleCharts/loader.js"></script>
+    <script src="/js/googleCharts/jsapi.js"></script>
+
+    <link href="/media/img/WebGIS/WebGIS_Ico.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>WebGIS AI Portal - Index</title>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#SlideshowImages > div:gt(0)").hide();
+            setInterval(function () {
+                $('#SlideshowImages > div:first').fadeOut(900).next().fadeIn(500).end().appendTo(
+                    '#SlideshowImages');
+            }, 4000);
+        });
+    </script>
+
+    <style>
+        /* Icon when the collapsible content is shown */
+        #accordion .btn:after {
+            font-family: "Glyphicons Halflings";
+            content: "\e114";
+            float: right;
+            margin-left: 15px;
+        }
+
+        /* Icon when the collapsible content is hidden */
+        #accordion .btn.collapsed:after {
+            content: "\e080";
+        }
+    </style>
+
+    <style>
+        .collapsing {
+            background-color: yellow;
+        }
+    </style>
+
+    <style type="text/css" style="display: none !important;">
+        #SlideshowImages {
+            /* margin: 5px 0; */
+            position: relative;
+            width: 200px;
+            height: 90px;
+            /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6); */
+        }
+
+        #SlideshowImages>div {
+            position: absolute;
+            /* top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px; */
+        }
+    </style>
+
+    <style>
+        /*photobanner*/
+        .photobanner {
+            height: 260px;
+            width: 3550px;
+            /*margin-bottom: 10px;*/
+        }
+
+        /*keyframe animations*/
+        /*
+        .first {
+            -webkit-animation: bannermove 30s linear infinite;
+            -moz-animation: bannermove 30s linear infinite;
+            -ms-animation: bannermove 30s linear infinite;
+            -o-animation: bannermove 30s linear infinite;
+            animation: bannermove 30s linear infinite;
+        }
+        */
+
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 4000px;
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+            /* font-size: 15px; */
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        .thumbImage {
+            max-width: 260px;
+            max-height: 260px;
+        }
+    </style>
+
+    <style>
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
+            width: 100%;
+        }
+    </style>
+
+    <style media="all" type="text/css">
+        /* The sidebar menu */
+        .sidebar {
+            height: 100%;
+            /* 100% Full-height */
+            width: 0;
+            /* 0 width - change this with JavaScript */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Stay on top */
+            top: 0;
+            left: 0;
+            background-color: #111;
+            /* Black*/
+            overflow-x: hidden;
+            /* Disable horizontal scroll */
+            padding-top: 60px;
+            /* Place content 60px from the top */
+            transition: 0.5s;
+            /* 0.5 second transition effect to slide in the sidebar */
+        }
+
+        /* The sidebar links */
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        /* Position and style the close button (top right corner) */
+        /* .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 69px;
+            margin-left: 20px;
+        } */
+
+        /* The button used to open the sidebar */
+        /* .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        } */
+
+        /* The button used to open the sidebar */
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            /* If you want a transition effect */
+            padding: 20px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (min-width: 590px) {
+            div.dynFontSize {
+                font-size: 19px;
+                font-weight: bold;
+            }
+
+            /* apply the styles to descendants by adding .sidebar * descendant selector */
+            .sidebar * {
+                font-size: 15px;
+
+            }
+
+            .dynLiTag * ul * {
+                margin-top: 2px;
+                margin-bottom: 0px;
+                padding-top: 2px;
+                padding-bottom: 23px;
+                padding-left: 5px;
+            }
+
+            .dynLiTag * li * {
+                margin-top: 2px;
+                margin-bottom: 0px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                padding-left: 5px;
+            }
+
+
+        }
+
+        @media screen and (max-width: 590px) {
+            div.dynFontSize {
+                font-size: 12px;
+                font-weight: normal;
+            }
+
+            /* apply the styles to descendants by adding .sidebar * descendant selector */
+            .sidebar * {
+                font-size: 10px;
+
+            }
+
+            .dynLiTag * ul * {
+                margin-top: 1px;
+                margin-bottom: 0px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+            }
+
+            .dynLiTag * li * {
+                margin-top: 1px;
+                margin-bottom: 0px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+            }
+
+        }
+    </style>
+
+    <style>
+        .buttonKBControlSubmit {
+            display: inline-block;
+            border-radius: 4px;
+            border-color: greenyellow;
+            border-width: 2px;
+            background-color: #f4511e;
+            border: 5px solid greenyellow; /* Green */
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            padding: 5px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            height: 99px;
+            width: 99px;
+            border-radius: 50%;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+        .buttonKBControlSubmit span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .buttonKBControlSubmit span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .buttonKBControlSubmit:hover span {
+            padding-right: 12px;
+            opacity: 1;
+        }
+
+        .buttonKBControlSubmit:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+            var valMaterialsNumber = document.forms["frmKBStatusControl"]["nMaterialsNumber"].value;
+            if (valMaterialsNumber.length != 9) {
+                alert("VUI LONG SCAN DUNG SO MA PARTNUMBER!!!");
+                document.getElementById("idMaterialsNumber").focus();
+                document.getElementById("idMaterialsNumber").select();
+                return false;
+            }
+
+            var valMaterialsLocation = document.forms["frmKBStatusControl"]["nMaterialsLocation"].value;
+            var intPosition = valMaterialsLocation.indexOf("-");
+            if ((valMaterialsLocation.length < 9) || (intPosition == -1)) {
+                alert("VUI LONG SCAN DUNG MA SO VI TRI!!!");
+                document.getElementById("idMaterialsLocation").focus();
+                document.getElementById("idMaterialsLocation").select();
+                return false;
+            }
+            
+            var valMaterialsQty = document.forms["frmKBStatusControl"]["nMaterialsQty"].value;
+            if (isNaN(valMaterialsQty)){
+                alert("VUI LONG SCAN SO LUONG LINH KIEN!!!");
+                document.getElementById("idMaterialsQty").focus();
+                document.getElementById("idMaterialsQty").select();
+                return false;
+            }
+            else{
+                if (Number(valMaterialsQty) <= 0){
+                    alert("VUI LONG SCAN SO LUONG LINH KIEN!!!");
+                    document.getElementById("idMaterialsQty").focus();
+                document.getElementById("idMaterialsQty").select();
+                    return false;
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background:green;font-size:large;vertical-align:central">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a href="/Home"><img img src="/img/mis/leandmaicbestpractice.gif" class="thumbImage navbar-brand" style="height: 69px; width:auto; margin: -10px auto" /></a>
+
+                <a href="/Home" class="navbar-brand">
+                    <div class="dynFontSize">MANUFACTURING MANAGEMENT SYSTEM</div>
+                </a>
+
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Home">Home</a></li>
+                    <li><a href="/About">About</a></li>
+                    <li><a href="/Contact">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr />
+    <div class="container-fluid">
+        <div class="row content">
+            <div id="mySidebar" class="sidebar">
+                <!-- <a href="#" class="closebtn" onclick="closeNav()">&times;</a> -->
+                <a href="javascript:void(0);" class="glyphicon glyphicon-menu-left" onclick="closeNav()"></a>
+                <div id="accordion" class="dynLiTag">
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#colPCP">PROCESS
+                                            CONTROL PLAN (PCP)</a>
+                                    </h5>
+                                </div>
+                                <div id="colPCP" class="collapse">
+                                    <ul>
+                                        <li>
+                                            <button type="button" class="btn btn-success collapsed" data-toggle="collapse"
+                                                data-target="#colPlanning">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                PRODUCTON
+                                                SCHEDULE PLANNING
+                                            </button>
+                                            <div id="colPlanning" class="collapse">
+                                                <ul>
+                                                    <li title="This Session Also Shows The PostAssy & PreAssy Schedule Planning By Downstream From FinalAssy Schedule Planning">
+                                                        <a href="/FinalAssyPlanning">FINAL ASSEMBLY PLANNING</a>
+                                                    </li>
+                                                    <li title="This Session Also Shows The Job Assignment Layout Basing On Skill Management & Planning Requirement">
+                                                        <a href="/HumanResourcePlanning">HUMAN RESOURCE
+                                                            PLANNING</a>
+                                                    </li>
+                                                    <li title="Engineering/Process Change Checklist">
+                                                        <a href="/FirstArticleInspection">FIRST ARTICLE
+                                                            INSPECTION
+                                                            (FAI)</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="panel panel-success">
+                                                <a href="/FMEA">FAILURE MODE & EFFECT ANALYSIS (FMEA)</a>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">MATERIALS
+                                            PROVIDING & HANDLING (MPH)</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <a href="/ReceivingTracking">RECEIVING TRACKING</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/ReceivingTracking">RECEIVING TRACKING</a>
+
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/ShippingTracking">SHIPPING TRACKING</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">TOTAL
+                                            QUALITY MANAGEMENT (TQM)</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <a href="/IITracking">INCOMMING INSPECTION (I/I)</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/OBATracking">OBA TRACKING</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/MRDTracking">MANUFACTURING DEFECT RATE (MDR)</a>
+                                        <li class="list-group-item">
+                                            <a href="/PRRTracking">PLAN RETURNED RATE (PRR)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">TOTAL
+                                            PRODUCTION MAINTENANCE (TPM)</a>
+                                    </h5>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <a href="/OEETracking">OVERALL EQUIPMENT EFFICIENCY (OEE)</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="/NEETracking">NET EQUIPMENT EFFICIENCY (NEE)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">KEY PERFORMACE INDICATORS (KPIs)</a> -->
+                                        <button type="button" class="btn btn-lg btn-info" data-toggle="collapse"
+                                            data-target="#collapse5">KEY PERFORMACE INDICATORS (KPIs)</button>
+                                    </h5>
+                                </div>
+                                <div id="collapse5" class="collapse in">
+                                    <ul>
+                                        <li>
+                                            <a href="/OIETracking">OVERALL INDUSTRIAL EFFICIENCY (OIE)</a>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collRU">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                RESOURCES
+                                                UTILIZATION RATE
+                                            </button>
+                                            <div id="collRU" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/SURTracking">STAFF UTILIZATION RATE (SUR)</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/TRSTracking">SYNTHETIC RATE OF RETURN(TRS)</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/TRPTracking">PRODUCTION RATE OF RETURN(TRP)</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collPRODUCTIVITY">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                PRODUCTIVITY
+                                            </button>
+                                            <div id="collPRODUCTIVITY" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/CPHTracking">CAPACITY PER HOUR (CPH)</a>
+                                                    </li>
+                                                    <li title="Review MRB Action To See Root Cause Of Failure">
+                                                        <a href="/FPYnUYTracking">FIRST-PASS & ULTIMATE YIELD
+                                                            (FPY/UY)</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collMRB" title="Review **Flow In Rate** and **Cost Inventory** For MRB Control">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                MATERIALS
+                                                REVIEW BOARD(MRB)
+                                            </button>
+                                            <div id="collMRB" class="collapse in">
+                                                <ul>
+                                                    <!-- For MRB Controlling ==> referring to Flow In and Cost Review -->
+                                                    <li>
+                                                        <a href="/PreAssyMRBTracking">PREASSY MRB</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/PostAssyMRBTracking">POSTASSY MRB</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/FinalAssyMRBTracking">FINALASSY MRB</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collDowmTime">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                DOWNTIME
+                                            </button>
+                                            <div id="collDowmTime" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/COTimeTracking">CHANGEOVER TIME</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/UnplannedDowntimeTracking">UNPLANNED DOWNTIME</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li class="list-group-item">
+                            <a href="/5STracking">5S GALLERY</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div>
+                    <ul>
+                        <li class="list-group-item">
+                            <a href="/VersabilityTraining">TRAINING & VERSABILITY SKILL CONTROL</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul>
+                        <li class="list-group-item">
+                            <a href="/SQLQuery">DATA TRACKING & QUERY</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="main">
+                <button class="openbtn" onclick="ToggleNav()">&#9776; Toggle Sidebar</button>
+
+                <div class="body-content panel-body" style="margin: 0 20px;">
+
+                    <!-- *************************************************************************************** -->
+                    <form name="frmKBStatusControl" method="POST" onsubmit="return validateForm()">
+                    <!-- <form name="frmKBStatusControl" method="POST"> -->
+                        <div class="row" style="display: none">
+                            <div class="col-sm-9">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;width:150px">Select
+                                    Sector Group: </label>
+
+                                <select name="nSectorGroup" id="idSectorGroup" style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px;"
+                                    onchange="GetSectorLine(this.value)">
+                                    <option value='Choose a Group'>Choose a Group</option>
+
+                                   
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px;display: none">
+                            <div class="col-sm-9">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;;width:150px">Select
+                                    Sector Line: </label>
+                                <select name="nSectorLine" id="idSectorLine" style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px"
+                                    onchange="GetSectorStation(this.value)">
+                                    <option value='Choose a Line'>Choose a Line</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px;display: none">
+                            <div class="col-sm-9">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;;width:150px">Select
+                                    Line Station: </label>
+                                <select name="nLineStation" id="idLineStation" style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px">
+                                    <option value='Choose a Station'>Choose a Station</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-sm-9">
+                                <div class="radio">
+                                    <label><input type="radio" name="oprdKBControl" value="FlashingLocation" onchange="ShowOpionKBControl('FlashingLocation')">Flashing
+                                        Location</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="oprdKBControl" value="UpdateKBQty" onchange="ShowOpionKBControl('UpdateKBQty')"
+                                            checked>Update
+                                        KANBAN Quantity</label>
+                                </div>
+                                <!-- <div class="radio disabled">
+                                    <label><input type="radio" name="optradio" disabled>Option 3</label>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-sm-9" id="idMaterialsNumberSec" style="display:block">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;width:150px">Materials
+                                    Number: </label>
+
+                                <input name="nMaterialsNumber" id="idMaterialsNumber" required style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px;">
+                                </input>
+                            </div>
+
+                            <div class="col-sm-9" id="idMaterialsLocationSec" style="display:block">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;width:150px">Materials
+                                    Location: </label>
+
+                                <input name="nMaterialsLocation" id="idMaterialsLocation" required style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px;">
+                                </input>
+                            </div>
+                            <div class="col-sm-9" id="idMaterialsQtySec" style="display:block">
+                                <label style="background-color:orange;font-weight:bold;padding:3px 0;width:150px">Materials
+                                    Qty: </label>
+
+                                <input name="nMaterialsQty" id="idMaterialsQty" required style="width:190px; height:auto;font-size: 12pt;font-weight:bold;background-color:yellow;margin-left:10px;">
+                                </input>
+                            </div>
+                        </div>
+
+                        <button class="buttonKBControlSubmit" id="idKANBANControlSubmit" type="submit"><span>SUBMIT</span></button>
+                    </form>
+
+                </div>
+
+                <hr />
+
+            </div>
+            <!-- *************************************************************************************** -->
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    <footer class="container-fluid text-center">
+        <hr />
+        <p>MANUFACTURING MANAGEMENT SYSTEM (MMS) &copy; - <span id="datetime"></span> - CopyRights: Truong Ngo
+            (IE
+            Process/Equipment Control Engineer)</p>
+    </footer>
+
+</body>
+
+</html>
+
+<script>
+    var dt = new Date();
+    document.getElementById("datetime").innerHTML = (("0" + (dt.getMonth() + 1)).slice(-2)) + "/" + (("0" + dt.getDate())
+        .slice(-2)) + "/" + (dt.getFullYear()) + " " + (("0" + dt.getHours() + 1).slice(-2)) + ":" + (("0" + dt
+        .getMinutes() + 1).slice(-2));
+</script>
+
+<script>
+    /* Set the width of the sidebar to 190px and the left margin of the page content to 190px */
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "520px";
+        document.getElementById("main").style.marginLeft = "520px";
+        console.log(document.getElementById("mySidebar").style.width);
+    }
+
+    /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        console.log("Hide");
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+    function ToggleNav() {
+        var widthScreen = screen.width;
+        var widthNav = document.getElementById("mySidebar").style.width;
+        console.log(widthNav);
+
+        if (widthNav == "0px") {
+            if (widthScreen > 590) {
+                document.getElementById("mySidebar").style.width = "520px";
+                document.getElementById("main").style.marginLeft = "520px";
+            } else {
+                document.getElementById("mySidebar").style.width = "360px";
+                document.getElementById("main").style.marginLeft = "360px";
+            }
+        } else {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    }
+
+    function GetSectorLine(strSectorGroup) {
+        document.getElementById("idSectorLine").disabled = true;
+        if (strSectorGroup.length == 0) {
+            document.getElementById("idSectorLine").innerHTML = "";
+            return;
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                var njsdata = JSON.parse(xmlhttp.responseText);
+                var $SectorLine = $("#idSectorLine");
+                $SectorLine.empty();
+
+                $SectorLine.append("<option value='Choose a Line'>Choose a Line</option>");
+                for (var ii = 0; ii < njsdata.length; ii++) {
+                    // alert(njsdata[ii].Sector);
+                    var strSector = njsdata[ii].Sector;
+
+
+                    $SectorLine.append("<option value='" + strSector + "'>" + strSector + "</option>");
+                }
+                // alert(njsdata + "\n" + njsdata.length);
+                // document.getElementById("idSectorLine").innerHTML = xmlhttp.responseText;
+
+            }
+        }
+        xmlhttp.open("GET", "api/getSectorLineByGroup?SectorGroup=" + strSectorGroup);
+        xmlhttp.send(null);
+
+        document.getElementById("idSectorLine").disabled = false;
+    }
+
+    function GetSectorStation(strSectorLine) {
+        alert(strSectorLine);
+        document.getElementById("idLineStation").disabled = true;
+        if (strSectorLine.length == 0) {
+            document.getElementById("idLineStation").innerHTML = "";
+            return;
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                var njsdata = JSON.parse(xmlhttp.responseText);
+                var $LineStation = $("#idLineStation");
+                $LineStation.empty();
+
+                $LineStation.append("<option value='Choose a Station'>Choose a Station</option>");
+                for (var ii = 0; ii < njsdata.length; ii++) {
+                    // alert(njsdata[ii].Sector);
+                    var strStationLocation = njsdata[ii].WorkStationLocation;
+
+
+                    $LineStation.append("<option value='" + strStationLocation + "'>" + strStationLocation +
+                        "</option>");
+                }
+                // alert(njsdata + "\n" + njsdata.length);
+                // document.getElementById("idLineStation").innerHTML = xmlhttp.responseText;
+
+            }
+        }
+        xmlhttp.open("GET", "api/getSectorStationByLine?SectorLine=" + strSectorLine);
+        xmlhttp.send(null);
+
+        document.getElementById("idLineStation").disabled = false;
+    }
+
+    function ShowOpionKBControl(strOpKBControl) {
+        // alert(strOpKBControl);
+        var idKBPartNumber = document.getElementById("idMaterialsNumberSec");
+        var idKBPartLoc = document.getElementById("idMaterialsLocationSec");
+        var idKBQty = document.getElementById("idMaterialsQtySec");
+
+        if (strOpKBControl == "FlashingLocation") {
+            idKBPartNumber.style.display = "none";
+            idKBPartLoc.style.display = "block";
+            idKBQty.style.display = "none";
+        } else if (strOpKBControl == "UpdateKBQty") {
+            idKBPartNumber.style.display = "block";
+            idKBPartLoc.style.display = "block";
+            idKBQty.style.display = "block";
+
+        }
+    }
+</script>

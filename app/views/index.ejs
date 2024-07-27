@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WebGIS AI Portal - Index</title>
+
+    <link rel="stylesheet" href="/css/Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/ol/olstyles.css" />
+    <link rel="stylesheet" href="/css/ol/ol.css" />
+
+    <link href="/media/img/WebGIS/WebGIS_Ico.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <script type="text/javascript" src="/js/jQuery-3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/DataTables/jQuery-1.12.4/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/css/Bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/js/googleCharts/loader.js"></script>
+    <script src="/js/googleCharts/jsapi.js"></script>
+
+    <!-- "@petamoriken/float16": "/scripts/@petamoriken/float16/index.d.ts", -->
+    <!-- "@petamoriken/float16": "/scripts/@petamoriken/float16/browser/float16.js", -->   
+    <!-- "http": "/scripts/@types/node/http.d.ts", -->
+
+    <script type="importmap">        
+        {
+            "imports": {
+                
+                "@petamoriken/float16": "/scripts/@petamoriken/float16/browser/float16.js",
+                
+                "color-name": "/scripts/color-name/index.js",
+                "color-parse": "/scripts/color-parse/index.js",
+                "color-rgba": "/scripts/color-rgba/index.js",
+                "color-space/": "/scripts/color-space/",
+                
+                "geotiff": "/scripts/geotiff/dist-module/geotiff.js",
+
+                "ol/": "/scripts/ol/",
+
+                "pbf": "/scripts/pbf/index.js",                               
+                
+                "quick-lru": "/scripts/quick-lru/index.js",
+                "quickselect": "/scripts/quickselect/index.js",
+
+                "rbush": "/scripts/rbush/index.js",                
+                
+                "xml-utils/": "/scripts/xml-utils/"
+            }
+        }
+    </script>
+
+    <!-- <script type="module" src="/js/ol/dist/ol.js"></script> -->
+    <script type="module">
+        // https://stackoverflow.com/questions/69888029/how-to-call-a-function-declared-in-a-javascript-module-type-module-from-an-htm
+        import { FindLocation } from "./js/olmain.js";
+        window.FindLocation = FindLocation;
+    </script>
+     <!-- <script type="text/javascript" src="/js/ol/dist/ol.js"></script> -->
+    <!-- <script type="text/javascript" src="/js/olmain.js"></script> -->
+
+    <!-- <script type="module" src="/js/olcs/lib/olcs.js"></script> -->
+    <!-- <script src="https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/Cesium.js"></script> -->
+    <!-- <script type="text/javascript" src="/scripts/ol/dist/ol.js"></script> -->
+    <!-- <script type="text/javascript" src="/scripts/olcs/lib/olcs.js"></script> -->
+    
+    <script type="text/javascript" src="/js/olsearch.js"></script>
+
+    <script type="text/javascript">        
+        
+        $(document).ready(function () {
+            // $("#SlideshowImages > div:gt(0)").hide();
+            // setInterval(function () {
+            //     $('#SlideshowImages > div:first').fadeOut(900).next().fadeIn(500).end().appendTo(
+            //         '#SlideshowImages');
+            // }, 4000);
+            
+            var widthScreen = screen.width;
+            var widthNav = document.getElementById("mySidebar").style.width;
+            console.log(widthNav);
+            if (localStorage.getItem("toggled") == "true") {
+                if (widthScreen > 590) {
+                    document.getElementById("mySidebar").style.width = "420px";
+                    document.getElementById("main").style.marginLeft = "420px";
+                } else {
+                    document.getElementById("mySidebar").style.width = "360px";
+                    document.getElementById("main").style.marginLeft = "360px";
+                }
+            }else{
+                document.getElementById("mySidebar").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            }
+
+            // var resdata = <%- JSON.stringify(data.strReturnedValue) %>;
+            // document.getElementById("idLiveSearch").innerHTML = resdata;
+
+        });
+    </script>
+
+    <style>
+        /* Icon when the collapsible content is shown */
+        #accordion .btn:after {
+            font-family: "Glyphicons Halflings";
+            content: "\e114";
+            float: right;
+            margin-left: 15px;
+        }
+
+        /* Icon when the collapsible content is hidden */
+        #accordion .btn.collapsed:after {
+            content: "\e080";
+        }
+    </style>
+
+    <style>
+        .collapsing {
+            background-color: yellow;
+        }
+    </style>
+
+    <style type="text/css" style="display: none !important;">
+        #SlideshowImages {
+            /* margin: 5px 0; */
+            position: relative;
+            width: 200px;
+            height: 90px;
+            /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6); */
+        }
+
+        #SlideshowImages>div {
+            position: absolute;
+            /* top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px; */
+        }
+    </style>
+
+    <style>        
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            /* margin-bottom: 0; */
+            /* border-radius: 0; */
+            background-color: #111;
+            color: white;
+            position:absolute; 
+            top:0px; 
+            left:0px; 
+            height:20px; 
+            right:0px;
+            overflow:hidden;
+        }
+
+        .bg-img {
+            /* The image used */
+            background-image: url("/media/img/WebGIS/AI_WebGIS01.jpg");
+
+            /* min-height: 380px; */
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            /* height: 4000px; */
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 5px;
+            position:absolute; 
+            bottom:0px; 
+            height:30px; 
+            left:0px; 
+            right:0px; 
+            overflow:hidden;
+        }
+
+        .thumbImage {
+            max-width: 260px;
+            max-height: 260px;
+        }
+    </style>
+
+    <style>
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
+            width: 100%;
+        }
+    </style>
+
+    <style media="all" type="text/css">
+        /* Set gray background color and 100% height */
+        /* .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        } */
+        
+        /* The sidebar menu */
+        .sidebar {
+            /* height: 100%; */
+            /* 100% Full-height */
+            width: 0;            
+            /* 0 width - change this with JavaScript */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Stay on top */
+            top: 0;
+            left: 0;
+            bottom:30px;
+            background-color: #111;
+            /* Black*/
+            overflow-x: auto;
+            /* Disable horizontal scroll */
+            padding-top: 60px;
+            /* Place content 60px from the top */
+            transition: all 0.5s ease-in-out;
+            /* 0.5 second transition effect to slide in the sidebar */
+        }
+
+        /* The sidebar links */
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        /* When you mouse over the navigation links, change their color */
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        /* Position and style the close button (top right corner) */
+        /* .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 69px;
+            margin-left: 20px;
+        } */
+
+        /* The button used to open the sidebar */
+        /* .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        } */
+
+        /* The button used to open the sidebar */
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            /* If you want a transition effect */
+            padding: 20px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (min-width: 590px) {
+            div.dynFontSize {
+                font-size: 19px;
+                font-weight: bold;
+            }
+
+            /* apply the styles to descendants by adding .sidebar * descendant selector */
+            .sidebar * {
+                font-size: 15px;
+
+            }
+
+            .dynLiTag * ul * {
+                margin-top: 2px;
+                margin-bottom: 0px;
+                padding-top: 2px;
+                padding-bottom: 23px;
+                padding-left: 5px;
+            }
+
+            .dynLiTag * li * {
+                margin-top: 2px;
+                margin-bottom: 0px;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                padding-left: 5px;
+            }
+
+
+        }
+
+        @media screen and (max-width: 590px) {
+            div.dynFontSize {
+                font-size: 12px;
+                font-weight: normal;
+            }
+
+            /* apply the styles to descendants by adding .sidebar * descendant selector */
+            .sidebar * {
+                font-size: 10px;
+
+            }
+
+            .dynLiTag * ul * {
+                margin-top: 1px;
+                margin-bottom: 0px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+            }
+
+            .dynLiTag * li * {
+                margin-top: 1px;
+                margin-bottom: 0px;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+            }
+
+        }
+    </style>
+
+    <style>
+        .buttSubmit {
+            display: inline-block;
+            border-radius: 4px;
+            border-color: greenyellow;
+            border-width: 2px;
+            background-color: #f4511e;
+            border: 5px solid greenyellow; /* Green */
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            padding: 5px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            /* height: 99px; */
+            height: 39px;
+            width: 99px;
+            /* border-radius: 50%; */
+            border-radius: 30%;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+        .buttSubmit span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .buttSubmit span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .buttSubmit:hover span {
+            padding-right: 12px;
+            opacity: 1;
+        }
+
+        .buttSubmit:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+
+    <style>
+        h1 {
+            color: green;
+        }
+
+        .multipleSelection {
+            width: 300px;
+            background-color: #BCC2C1;
+            position: relative;
+            display: inline-block;
+        }
+
+        .selectBox {
+            position: relative;
+            height: 100%;
+        }
+
+        .selectBox select {
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .overSelect {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        #idCheckBoxList {            
+            display: none;
+            border: 1px #8DF5E4 solid;
+            background-color: yellow;
+            overflow-y: auto;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #idMultipleSelection:hover > #idCheckBoxList{
+            display: block;
+        }
+
+        #idCheckBoxList>label {
+            display: block;
+            cursor: pointer;
+        }
+
+        #idCheckBoxList>label:hover {
+            background-color: #4F615E;
+            color: white;            
+        }
+        
+    </style>
+
+    <style>
+        /* .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 180px;
+        } */
+        
+        /* .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        } */
+        
+        /* .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        } */
+        
+        /* .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        } */
+        
+        /* .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+        } */
+        
+        /* .ol-popup-closer:after {
+            content: "<img draggable="false" role="img" class="emoji" alt=" " src='/media/img/close_button.png'>";
+        } */
+    </style>
+
+    <script>
+        function validateForm() {
+            var valMaterialsNumber = document.forms["frmMapLayerControl"]["nMaterialsNumber"].value;
+            if (valMaterialsNumber.length != 9) {
+                alert("VUI LONG SCAN DUNG SO MA PARTNUMBER!!!");
+                document.getElementById("idMaterialsNumber").focus();
+                document.getElementById("idMaterialsNumber").select();
+                return false;
+            }
+        }
+    </script>    
+    
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <!-- <nav class="navbar bg-img navbar-inverse navbar-fixed-top"> -->
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a href="/Home"><img img src="/media/img/WebGIS/AIGIS.ico" class="thumbImage navbar-brand" style="height: 69px; width:auto; margin: -10px auto" /></a>
+
+                <a href="/Home" class="navbar-brand">
+                    <div class="dynFontSize">WebGIS AI Portal</div>
+                </a>
+
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Home">Home</a></li>
+                    <li><a href="/About">About</a></li>
+                    <li><a href="/Contact">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr />
+    <div class="container-fluid" style="position:absolute; top:35px; bottom:30px; left:0px; right:0px; overflow:auto;">
+        <div class="row content">
+            <div id="mySidebar" class="sidebar">
+                <!-- <a href="#" class="closebtn" onclick="closeNav()">&times;</a> -->
+                <a href="javascript:void(0);" class="glyphicon glyphicon-menu-left" onclick="closeNav()"></a>
+                <div id="accordion" class="dynLiTag">
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <button type="button" class="btn btn-lg btn-info" data-toggle="collapse"
+                                            data-target="#colPCP">MAP LAYERS
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="colPCP" class="collapse">
+                                    <ul>
+                                        <li>
+                                            <button type="button" class="btn btn-success collapsed" data-toggle="collapse"
+                                                data-target="#colPlanning">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                PRODUCTION SCHEDULE PLANNING
+                                            </button>
+                                            <div id="colPlanning" class="collapse">
+                                                <ul>
+                                                    <li title="This Session Also Shows The PostAssy & PreAssy Schedule Planning By Downstream From FinalAssy Schedule Planning">
+                                                        <a href="/FinalAssyPlanning">FINAL ASSEMBLY PLANNING</a>
+                                                    </li>
+                                                    <li title="This Session Also Shows The Job Assignment Layout Basing On Skill Management & Planning Requirement">
+                                                        <a href="/HumanResourcePlanning">HUMAN RESOURCE PLANNING</a>
+                                                    </li>
+                                                    <li title="Engineering/Process Change Checklist">
+                                                        <a href="/FirstArticleInspection">FIRST ARTICLE INSPECTION (FAI)</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>                        
+
+                        <li>
+                            <div>
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <button type="button" class="btn btn-lg btn-info" data-toggle="collapse"
+                                            data-target="#colKPI">CONFIGURATION
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="colKPI" class="collapse in">
+                                    <ul>
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collRU">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                AI SETTINGS
+                                            </button>
+                                            <div id="collRU" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/SAM">SAM</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/TRSTracking">TRAINING MODE</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/TRPTracking">DATASOURCE CONNECTION</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collPRODUCTIVITY">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                GIS SETTINGS
+                                            </button>
+                                            <div id="collPRODUCTIVITY" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/CPHTracking">THEME SELECTION</a>
+                                                    </li>
+                                                    <li title="Review MRB Action To See Root Cause Of Failure">
+                                                        <a href="/FPYnUYTracking">GIS DATASOURCE CONNECTION</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <button type="button" class="btn btn-success" data-toggle="collapse"
+                                                data-target="#collDowmTime">
+                                                <span class="glyphicon glyphicon-collapse-down"></span>
+                                                USERS SETTINGS
+                                            </button>
+                                            <div id="collDowmTime" class="collapse in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="/COTimeTracking">USER GROUP</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/UnplannedDowntimeTracking">USER DASHBOARD CONFIGURATION</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li class="list-group-item" style="margin-left:-20px; margin-right:25px; background-color: gold;">
+                            <a href="/WebGISAIGallery">
+                                <span style="color:green; font-weight: bold; font-size: larger;">WebGIS & AI GALLERY</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="main">
+                <button class="openbtn" onclick="ToggleNav()">&#9776; Toggle Sidebar</button>
+
+                <div class="body-content panel-body" style="margin: 0 20px;">
+
+                    <!-- *************************************************************************************** -->
+                    <form name="frmMapLayerControl" method="POST" onsubmit="return validateForm()">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-sm-6">
+                                <div class="col-sm-6">
+                                    <label style="background-color:orange;font-weight:bold;padding:3px 0;;width:100%">Show/Hide Map Layer: </label>
+                                </div>
+
+                                <!-- https://www.geeksforgeeks.org/how-to-use-checkbox-inside-select-option-using-javascript/ -->
+                                <!-- https://www.geeksforgeeks.org/how-to-create-a-select-all-checkbox-in-javascript/ -->
+
+                                <!-- https://stackoverflow.com/questions/4502633/how-to-affect-other-elements-when-one-element-is-hovered -->
+                                <!-- https://stackoverflow.com/questions/41803496/hide-element-on-hover-of-another-element -->
+                                <!-- https://stackoverflow.com/questions/38486661/css-how-to-hide-div-by-hovering-another-div -->
+                                <div class="col-sm-6">
+                                    <div class="multipleSelection" id="idMultipleSelection" style="background-color:orange;font-weight:bold;padding:3px;;width:100%">
+                                        <div class="selectBox" id="idSelectBox">
+                                            <select>
+                                                <option>Show/Hide Map Layer</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                             
+                                        <div id="idCheckBoxList">
+                                            <label for="idSelectAll">
+                                                <input type="checkbox" id="idSelectAll" checked/>
+                                                Select All
+                                            </label>
+
+                                            <label for="idHouseLayer">
+                                                <input type="checkbox" id="idHouseLayer" class="checkboxes" checked/>
+                                                House Layer
+                                            </label>
+                             
+                                            <label for="idParcelLayer">
+                                                <input type="checkbox" id="idParcelLayer" class="checkboxes" checked/>
+                                                Parcel Layer
+                                            </label>
+
+                                            <label for="idStreetLayer">
+                                                <input type="checkbox" id="idStreetLayer" class="checkboxes" checked/>
+                                                Street Layer
+                                            </label>
+
+                                            <label for="idStreetlineLayer">
+                                                <input type="checkbox" id="idStreetlineLayer" class="checkboxes" checked/>
+                                                Street Line Layer
+                                            </label>
+
+                                            <label for="idTreeLayer">
+                                                <input type="checkbox" id="idTreeLayer" class="checkboxes" checked/>
+                                                Tree Layer
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <!-- This below code will trigger the *showResult* function in /js/olsearch.js-->
+                                <input id="idShowResult" name="nmShowResult" type="text" size="30" onkeyup="showResult(this.value)" placeholder="Search Route" />
+
+                                <!-- This below code will trigger once data input and triggered by ENTER-->
+                                <!-- <input id="idSearchValue" name="nmSearchValue" type="text" size="30" placeholder="Search Route" /> -->
+
+                                <div id="idLiveSearch"></div>                                
+                            </div>
+                        </div>
+
+                        <button class="buttSubmit" id="idSubmit" type="submit"><span>SUBMIT</span></button>
+                    </form>
+                    <div>
+                        <div>
+
+                        </div>
+
+                        <div>
+
+                        </div>
+                    </div>
+                    <div id='idMap' class="map" style="height: 500px; width: 100%;"></div>
+
+                    <!-- Show Legend On The Map -->
+                    <div id="idLegend" style="display: flex; text-align: center; vertical-align: middle;">
+                        <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:house&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true;layout:vertical"/>
+                        <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:parcel&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true"/>
+                        <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:street&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true"/>
+                        <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:streetline&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true"/>
+                        <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:tree_vn2000&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true"/>
+                        <!-- <img src="http://localhost:9999/geoserver/WebGISDBdev/wms?service=WMS&version=1.1.0&request=GetLegendGraphic&width=20&height=20&LAYER=WebGISDBdev:WebGISDBdev_LayerGroup&bbox=-124.73,24.956,-66.96,49.37&srcwidth=768&srcheight=330&srs=EPSG:4326&format=image/png&legend_options=forceLabels:on;countMatched:true;fontAntiAliasing:true;layout:vertical"/> -->
+                    </div>
+                    <div id="idInfor">
+                        <!-- <iframe width="560" height="315"  src="https://www.youtube.com/watch?v=h1d_ArQSCW0" frameborder="0" allowfullscreen></iframe> -->
+                    </div>
+
+                    <div id="idPopup" class="ol-popup">
+                        <a href="#" id="idPopupCloser" class="ol-popup-closer"></a>
+                         
+                        <div id="idPopupContent"></div>
+                    </div>
+            </div>
+            <!-- *************************************************************************************** -->
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p>WEBGIS AI PORTAL &copy; - <span id="datetime"></span> - CopyRights: Ms. Tran Ngoc Huyen Trang (Lecturer Of HCM Universitiy Of Natural Resources And Environment)</p>
+    </footer>
+
+</body>
+
+</html>
+
+<script>
+    var dt = new Date();
+    document.getElementById("datetime").innerHTML = (("0" + (dt.getMonth() + 1)).slice(-2)) + "/" + (("0" + dt.getDate())
+        .slice(-2)) + "/" + (dt.getFullYear()) + " " + (("0" + dt.getHours() + 1).slice(-2)) + ":" + (("0" + dt
+        .getMinutes() + 1).slice(-2));
+</script>
+
+<script>
+    /* Set the width of the sidebar to 190px and the left margin of the page content to 190px */
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "420px";
+        document.getElementById("main").style.marginLeft = "420px";
+        console.log(document.getElementById("mySidebar").style.width);
+    }
+
+    /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        console.log("Hide");
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+    function ToggleNav() {
+        var widthScreen = screen.width;
+        var widthNav = document.getElementById("mySidebar").style.width;
+        console.log(widthNav);
+
+        if (widthNav == "0px") {
+            localStorage.setItem('toggled','true');
+            if (widthScreen > 590) {
+                document.getElementById("mySidebar").style.width = "420px";
+                document.getElementById("main").style.marginLeft = "420px";
+            } else {
+                document.getElementById("mySidebar").style.width = "360px";
+                document.getElementById("main").style.marginLeft = "360px";
+            }
+        } else {
+            localStorage.setItem('toggled','false');
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    }
+
+    // function FindLocation(x, y){
+    //     const view = new ol.View({
+    //         center: ol.proj.fromLonLat([106.8379, 10.85]),
+    //         zoom: 16,
+    //     });
+
+    //     var projection = new ol.proj.Projection({
+	// 				code: 'EPSG:3405',
+	// 				units: 'm',
+	// 				axisOrientation: 'neu'
+	// 			});
+        
+    //     var vi_tri = ol.proj.fromLonLat([x, y], projection);
+    //     view.animate({
+    //         center: vi_tri,
+    //         duration: 2000,
+    //         zoom: 20
+    //     })
+    // }
+
+</script>
+

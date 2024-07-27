@@ -1,0 +1,439 @@
+<meta charset='utf8'>
+<title>KANBAN STATUS</title>
+
+
+<!-- <script type="text/javascript" src="/DataTables/jQuery-1.12.4/jquery-1.12.4.min.js"></script> -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<!-- <script type="text/javascript" src="/DataTables/datatables.min.js"></script> -->
+
+<!-- <script type="text/javascript" src="/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!-- <script type="text/javascript" src="/DataTables/RowReorder-1.2.4/js/rowReorder.dataTables.js"></script>
+<script type="text/javascript" src="/DataTables/Select-1.2.6/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="/DataTables/jquery.jeditable-1.3.js"></script> -->
+
+<!-- <script type="text/javascript" src="/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css" /> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+<!-- <link rel="stylesheet" type="text/css" href="/DataTables/RowReorder-1.2.4/css/rowReorder.dataTables.min.css" /> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="/DataTables/Responsive-2.2.2/css/responsive.dataTables.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" />
+
+<!-- <link rel="stylesheet" href="/css/Bootstrap/css/bootstrap.min.css" /> -->
+
+<!-- <script src="/js/jeditable-1.7.3/js/jquery.jeditable.js"></script> -->
+<!-- <script src="/js/jquery-ui-1.12.1/jquery-ui.min.js"></script> -->
+
+
+<style media="all" type="text/css">
+    .alignCenter {
+        text-align: center;
+    }
+
+    .bgBlueVal {
+        background: #006DCC !important;
+    }
+
+    .bgBlue {
+        background: blue !important;
+    }
+
+    .bgRed {
+        background: red !important;
+    }
+
+    .bgGrey {
+        background: grey !important;
+    }
+</style>
+
+<style>
+    table.display {
+        margin: 0 auto;
+        width: 95%;
+        clear: both;
+        border-collapse: collapse;
+        text-overflow: clip;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    table.dataTable thead th,
+    table.dataTable thead td {
+        padding: 5px 5px;
+        border: 2px solid #222;
+    }
+
+    table.datatable thead th {
+        background-color: orange;
+        color: white;
+    }
+
+    table.datatable tbody td {
+        background-color: #EEEEEE;
+    }
+
+    td.details-control {
+        background: url('/img/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('/img/details_open.png') no-repeat center center;
+    }
+
+    td.details-control {
+        background: url('/img/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.details td.details-control {
+        background: url('/img/details_close.png') no-repeat center center;
+    }
+</style>
+
+<style>
+    body {
+        padding-top: 50px;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    /* @media screen and (min-width: 590px) {
+        #idMaterialsKANBANStatus {
+            display: "block";
+        }
+    }
+
+    @media screen and (max-width: 590px) {
+        #idMaterialsKANBANStatus {
+            display: "none";
+        }        
+    } */
+
+</style>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+
+        <script type="text/javascript">
+            var oTable; // use a global for the submit and return data rendering in the idMaterialsKANBANStatuss
+            $(document).ready(function () {
+                $('#idMaterialsKANBANStatus tbody td').each(function () {
+                    $(this).html($.trim($(this).html()));
+                });
+
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(0)").css('background-color', 'yellow').css(
+                    'color', 'red');
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(2)").css('background-color', 'orange').css(
+                    'color', 'white');
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(3)").css('background-color', 'orange').css(
+                    'color', 'white');
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(4)").css('background-color', 'orange').css(
+                    'color', 'white');
+
+
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(6)").css('background-color', 'grey').css(
+                    'color', 'white');
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(7)").css('background-color', 'grey').css(
+                    'color', 'white');
+                $("#idMaterialsKANBANStatus").find("thead th:nth-child(8)").css('background-color', 'grey').css(
+                    'color', 'white');
+
+
+                oTable = $('#idMaterialsKANBANStatus').DataTable({
+                    "Dom": 'Rlfrtip',
+                    "bAutoWidth": true,
+                    "rowReorder": true,
+                    "stateSave": true,
+                    "responsive": true,
+                    "scrollY": "690px",
+                    // "scrollY": '50vh',
+                    "scrollCollapse": true,
+
+                    "order": [
+                        [0, 'desc'],
+                        [2, 'asc'],
+                    ],
+
+                    "lengthMenu": [
+                        [30, 40, 45, -1],
+                        [30, 40, 45, "All"]
+                    ],
+
+                    "language": {
+                        "decimal": ",",
+                        "thousands": ".",
+                        "lengthMenu": "Display _MENU_ records per page",
+                        "zeroRecords": "Nothing found - sorry",
+                        "info": "Showing page _PAGE_ of _PAGES_",
+                        "infoEmpty": "No records available",
+                        "infoFiltered": "(filtered from _MAX_ total records)"
+                    },
+
+                    "pagingType": "full_numbers",
+
+                    "columnDefs": [
+
+                        {
+                            "sName": "Status",
+                            orderable: true,
+                            sClass: 'reorder',
+                            // width: '30px',
+                            // "visible": true,
+                            "searchable": true,
+                            targets: 0,
+                            responsivePriority: 8,
+                        },
+                        {
+                            "class": "details-control",
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": "",
+                            targets: 1,
+                            // "fnRender": function (oObj) {
+                            //     return '/img/details_open.png" ' +
+                            //         'alt="expand/collapse" rel="' + oObj.aData[2] + '"/>';
+                            // }
+                            responsivePriority: 9,
+                        },
+                        {
+                            "sName": "WorkStationLocation",
+                            "data": "WorkStationLocation",
+                            orderable: true,
+                            // width: '100px',
+                            targets: 2,
+                            // orderData: [ 0, 1 ],
+                            responsivePriority: 1,
+                        },
+                        {
+                            "sName": "KANBANMaterials",
+                            "data": "KANBANMaterials",
+                            orderable: true,
+                            // width: '100px',
+                            targets: 3,
+                            responsivePriority: 2,
+                        },
+                        {
+                            "sName": "QtyperProduct",
+                            "data": "QtyperProduct",
+                            orderable: false,
+                            sClass: 'alignCenter',
+                            // width: '90px',
+                            targets: 4,
+                            responsivePriority: 4,
+                        },
+                        {
+                            "sName": "KANBANFedQty",
+                            orderable: false,
+                            // width: '100px',
+                            targets: 5,
+                            responsivePriority: 3,
+                        },
+                        {
+                            "sName": "CurrentPONumber",
+                            orderable: false,
+                            targets: 6,
+                            responsivePriority: 5,
+                        },
+                        {
+                            "sName": "CurrentPOFinishedQty",
+                            orderable: false,
+                            sClass: 'alignCenter',
+                            // width: '60px',
+                            targets: 7,
+                            responsivePriority: 6,
+                        },
+                        {
+                            "sName": "POQty",
+                            orderable: false,
+                            // width: '60px',
+                            targets: 8,
+                            responsivePriority: 7,
+                        },
+
+                        {
+                            // orderable: false,
+                            // targets: '_all'
+                        }
+                    ],
+
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                        if (aData[0] == "2") {
+                            $('td', nRow).css('background-color', 'orange').css('color', 'black').css(
+                                'font-weight', 'bold');
+                        } else if (aData[0] == "3") {
+                            $('td', nRow).css('background-color', 'red').css('color', 'white').css(
+                                'font-weight', 'bold');
+                        } else {
+                            $('td', nRow).css('background-color', 'green').css('color', 'white');
+                        }
+
+                    },
+
+                    select: true
+                });
+
+                // ***************************************************************** //
+                $('#idMaterialsKANBANStatus tbody td img').click(function () {
+                    var nTr = this.parentNode.parentNode;
+                    if (this.src.match('details_close')) {
+                        /* This row is already open - close it */
+                        this.src = "/img/details_open.png";
+                        oTable.fnClose(nTr);
+                    } else {
+                        /* Open this row */
+                        this.src = "/img/details_close.png";
+                        var workstaionloc = $(this).attr("rel").trim();
+                        console.log(workstaionloc);
+
+                        // $.get("FinalAssyPlanning/POInfor?PONumber=" + poNumber, function (podowntimes) {
+                        //     oTable.fnOpen(nTr, podowntimes, 'details');
+                        // });                               
+                    }
+
+
+                });
+
+                var detailRows = [];
+
+                $('#idMaterialsKANBANStatus tbody').on('click', 'tr td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = oTable.row(tr);
+                    var idx = $.inArray(tr.attr('id'), detailRows);
+
+                    if (row.child.isShown()) {
+                        tr.removeClass('details');
+                        row.child.hide();
+
+                        // Remove from the 'open' array
+                        detailRows.splice(idx, 1);
+                    } else {
+                        tr.addClass('details');
+                        row.child(format(row.data())).show();
+                        // WorkStationLocation
+                        // alert(row.data().WorkStationLocation);
+
+                        // Add to the 'open' array
+                        if (idx === -1) {
+                            detailRows.push(tr.attr('id'));
+                        }
+                    }
+                });
+
+                // On each draw, loop over the `detailRows` array and show any child rows
+                oTable.on('draw', function () {
+                    $.each(detailRows, function (i, id) {
+                        $('#' + id + ' td.details-control').trigger('click');
+                    });
+                });
+
+                function format(d) {
+                    return 'WorkStationLocation: ' + d.WorkStationLocation + ' ' + "(Quantity/Product: " + d.QtyperProduct +
+                        ")" + '<br>' +
+                        'Materials: ' + d.KANBANMaterials + '<br>' +
+                        '... !!!';
+                }
+
+                new $.fn.dataTable.Responsive(oTable, {
+                    details: false
+                });
+
+            });
+        </script>
+
+        <div class="row">
+            <div>
+                <table id="idMaterialsKANBANStatus" class="display responsive nowrap" cellspacing="0" style="width:100%">
+                    <thead class="success">
+                        <tr>
+                            <th data-priority="8" rowspan="2">Status</th>
+                            <th data-priority="1" colspan="5">KANBAN Materials Information</th>
+                            <th data-priority="2" colspan="3">Current PO Information</th>
+                        </tr>
+                        <tr class="success">
+                            <!-- <th>Status</th> -->
+                            <th data-priority="9">(*)</th>
+                            <th data-priority="1">Location</th>
+                            <th data-priority="2">Materials</th>
+                            <th data-priority="4">Qty/FG</th>
+                            <th data-priority="3">Qty/FedOnLine</th>
+                            <th data-priority="5">CurrentPO</th>
+                            <th data-priority="6">Cur.POFinished</th>
+                            <th data-priority="7">POQty</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% var statusWar = "" %>
+                        <% var keys %>
+                        <% var strKANBANLevelID = "" %>
+                        <% var strKANBANMaterials = "" %>
+                        <% var strKANBANFedQty = "" %>
+                        <% var strCurrentPONumber = "" %>
+                        <% var strCurrentPOFinishedQty = "" %>
+                        <% var strQtyperProduct = "" %>
+                        <% var strWorkStationLocation = "" %>
+                        <% var strPOQty = "" %>
+
+                        <% if (dataKBStatus != null) { %>
+                        <% dataKBStatus.forEach(function (jsonitem) { %>
+                        <% keys = Object.keys(jsonitem) %>
+
+                        <% strKANBANLevelID = jsonitem[keys[0]] %>
+                        <% strKANBANMaterials = jsonitem[keys[1]] %>
+                        <% strKANBANFedQty = jsonitem[keys[2]] %>
+                        <% strCurrentPONumber = jsonitem[keys[3]] %>
+                        <% strCurrentPOFinishedQty = jsonitem[keys[4]] %>
+                        <% strQtyperProduct = jsonitem[keys[5]] %>
+                        <% strWorkStationLocation = jsonitem[keys[6]] %>
+                        <% strPOQty = jsonitem[keys[7]] %>
+
+                        <tr>
+                            <td>
+                                <%= strKANBANLevelID %>
+                            </td>
+                            <td>
+                                <img src="/img/details_open.png" alt="expand/collapse" rel="Materials" />
+                            </td>
+                            <td>
+                                <%= strWorkStationLocation %>
+                            </td>
+                            <td>
+                                <%= strKANBANMaterials %>
+                            </td>
+                            <td>
+                                <%= strQtyperProduct %>
+                            </td>
+                            <td>
+                                <%= strKANBANFedQty %>
+                            </td>
+                            <td>
+                                <%= strCurrentPONumber %>
+                            </td>
+                            <td>
+                                <%= strCurrentPOFinishedQty %>
+                            </td>
+                            <td>
+                                <%= strPOQty %>
+                            </td>
+
+                        </tr>
+                        <% }); %>
+                        <% }; %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</nav>
