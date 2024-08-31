@@ -21,33 +21,35 @@
     <script src="/js/googleCharts/loader.js"></script>
     <script src="/js/googleCharts/jsapi.js"></script>
 
-    <!-- "@petamoriken/float16": "/scripts/@petamoriken/float16/index.d.ts", -->
-    <!-- "@petamoriken/float16": "/scripts/@petamoriken/float16/browser/float16.js", -->   
-    <!-- "http": "/scripts/@types/node/http.d.ts", -->
+    <!-- "@petamoriken/float16": "/node_modules/@petamoriken/float16/index.d.ts", -->
+    <!-- "@petamoriken/float16": "/node_modules/@petamoriken/float16/browser/float16.js", -->   
+    <!-- "http": "/node_modules/@types/node/http.d.ts", -->
+    <!-- "ol/": "/node_modules/ol/", -->
 
     <script type="importmap">        
         {
             "imports": {
                 
-                "@petamoriken/float16": "/scripts/@petamoriken/float16/browser/float16.js",
+                "@petamoriken/float16": "/node_modules/@petamoriken/float16/browser/float16.js",
                 
-                "color-name": "/scripts/color-name/index.js",
-                "color-parse": "/scripts/color-parse/index.js",
-                "color-rgba": "/scripts/color-rgba/index.js",
-                "color-space/": "/scripts/color-space/",
+                "color-name": "/node_modules/color-name/index.js",
+                "color-parse": "/node_modules/color-parse/index.js",
+                "color-rgba": "/node_modules/color-rgba/index.js",
+                "color-space/": "/node_modules/color-space/",
                 
-                "geotiff": "/scripts/geotiff/dist-module/geotiff.js",
+                "geotiff": "/node_modules/geotiff/dist-module/geotiff.js",
 
-                "ol/": "/scripts/ol/",
+                "ol/": "/node_modules/ol/",
+                "olcs/": "/node_modules/olcs/lib/olcs/",
 
-                "pbf": "/scripts/pbf/index.js",                               
+                "pbf": "/node_modules/pbf/index.js",                               
                 
-                "quick-lru": "/scripts/quick-lru/index.js",
-                "quickselect": "/scripts/quickselect/index.js",
+                "quick-lru": "/node_modules/quick-lru/index.js",
+                "quickselect": "/node_modules/quickselect/index.js",
 
-                "rbush": "/scripts/rbush/index.js",                
+                "rbush": "/node_modules/rbush/index.js",                
                 
-                "xml-utils/": "/scripts/xml-utils/"
+                "xml-utils/": "/node_modules/xml-utils/"
             }
         }
     </script>
@@ -56,15 +58,17 @@
     <script type="module">
         // https://stackoverflow.com/questions/69888029/how-to-call-a-function-declared-in-a-javascript-module-type-module-from-an-htm
         import { FindLocation } from "./js/olmain.js";
-        window.FindLocation = FindLocation;
+
+        window.FindLocation = FindLocation;        
     </script>
      <!-- <script type="text/javascript" src="/js/ol/dist/ol.js"></script> -->
     <!-- <script type="text/javascript" src="/js/olmain.js"></script> -->
 
     <!-- <script type="module" src="/js/olcs/lib/olcs.js"></script> -->
-    <!-- <script src="https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/Cesium.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/ol/dist/ol.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/olcs/lib/olcs.js"></script> -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/Cesium.js"></script>
+    <!-- <script src="/node_modules/cesium/Build/Cesium/Cesium.js"></script> -->
+    <!-- <script type="text/javascript" src="/node_modules/ol/dist/ol.js"></script> -->
+    <!-- <script type="text/javascript" src="/node_modules/olcs/lib/olcs.js"></script> -->
     
     <script type="text/javascript" src="/js/olsearch.js"></script>
 
@@ -79,7 +83,7 @@
             
             var widthScreen = screen.width;
             var widthNav = document.getElementById("mySidebar").style.width;
-            console.log(widthNav);
+            // console.log(widthNav);
             if (localStorage.getItem("toggled") == "true") {
                 if (widthScreen > 590) {
                     document.getElementById("mySidebar").style.width = "420px";

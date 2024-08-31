@@ -1,24 +1,28 @@
-import Map from './ol/Map.js';
+import Map from 'ol/Map.js';
+import OSM from 'ol/source/OSM.js';
+import VectorSource from 'ol/source/Vector.js';
+import ImageWMS from 'ol/source/ImageWMS.js';
 
-import OSM from './ol/source/OSM.js';
-import VectorSource from './ol/source/Vector.js';
-import ImageWMS from './ol/source/ImageWMS.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import TileLayer from 'ol/layer/Tile.js';
+import ImageLayer from 'ol/layer/Image.js';
 
-import VectorLayer from './ol/layer/Vector.js';
-import TileLayer from './ol/layer/Tile.js';
-import ImageLayer from './ol/layer/Image.js';
-
-import View from './ol/View.js';
+import View from 'ol/View.js';
 import {
     Projection, 
     fromLonLat
-} from './ol/proj.js';
+} from 'ol/proj.js';
 
-import Style from './ol/style/Style.js';
-import Stroke from './ol/style/Stroke.js';
+import Style from 'ol/style/Style.js';
+import Stroke from 'ol/style/Stroke.js';
 
-import Overlay from './ol/Overlay.js';
-import GeoJSON from './ol/format/GeoJSON.js';
+import Overlay from 'ol/Overlay.js';
+import GeoJSON from 'ol/format/GeoJSON.js';
+
+// import OLCesium from "olcs/lib/olcs/OLCesium.js";
+// import OLCesium from 'olcs/lib/olcs.js';
+// import OLCesium from 'olcs';
+import OLCesium from 'olcs/OLCesium.js';
 
 // const map = new Map({
 //   layers: [
@@ -385,10 +389,13 @@ $(function(){
 
     // map2Djs.on('moveend', updatePermalink);
 
-    // const map3Djs = new olcs.OLCesium ({
+    const map3Djs = new OLCesium ({
 
-    //     map: ol2dMap
-    // });
+        map: map2Djs
+    });
+
+    map3Djs.setEnabled(true); // switch to 3D - show the globe
+    map3Djs.setEnabled(true); // switch to 2D - show the map
 
 });
 
@@ -486,7 +493,5 @@ export function FindLocation(x, y, longitude, latitude){
     Access_Geo_Attribute(url);
 
 };
-
-import OLCesium from './olcs/lib/olcs.js';
 
 // window.FindLocation = FindLocation;
